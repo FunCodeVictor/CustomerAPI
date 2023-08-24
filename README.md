@@ -19,7 +19,8 @@ Database migrations. Create with `npx prisma migrate dev --name init --create-on
 Run migrations with `npx prisma migrate dev`. If correct, move the generated named migration folder with .sql file within it (images/customer-app/migrations to mysql/migrations). Commit both (not ideal atm..)
 Migrations will be run on DB when running docker compose up -d.
 
-You can reset your DB with (very) small data sample with  `docker exec -d customer-app "prisma migrate reset"`
+You can reset your DB with (very) small data sample (from application/customer-app/prisma/seed.ts) with by running following command inside customer-app docker image (`docker exec -it customer-app sh`) `npm prisma migrate reset`
+To just empty the database run `npm prisma reset`
 
 Useful Docker commands:
 `docker compose up -d` runs the whole solution

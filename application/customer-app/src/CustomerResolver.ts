@@ -24,6 +24,9 @@ class CustomerUniqueInput {
 @InputType()
 class CustomerCreateInput {
   @Field()
+  id: number
+  
+  @Field()
   customerName: string
 
   @Field()
@@ -35,8 +38,23 @@ class CustomerCreateInput {
   @Field()
   phoneNumber: string
 
-  @Field((type) => [StoreCreateInput], { nullable: true })
+  @Field((type) => [StoreCreateInput])
   stores: [StoreCreateInput]
+}
+
+@InputType()
+export class StoreCreateInputDirectOnCustomer {
+  @Field()
+  storeName: string;
+
+  @Field()
+  distributionCenterName: string;
+
+  @Field((type) => Date, { nullable: true })
+  openDate: Date | null;
+
+  @Field((type) => Date, { nullable: true })
+  closeDate: Date | null;
 }
 
 @Resolver(Customer)
@@ -53,7 +71,7 @@ export class CustomerResolver {
   }
 
   @Mutation((returns) => Customer)
-  async signupCustomer(
+  async createCustomer(
     @Arg('data') data: CustomerCreateInput,
     @Ctx() ctx: Context,
   ): Promise<Customer> {
@@ -68,6 +86,7 @@ export class CustomerResolver {
 
     return ctx.prisma.customer.create({
       data: {
+        id: data.id,
         customerName: data.customerName,
         sdpId: data.sdpId,
         streetName: data.streetName,
@@ -98,5 +117,12 @@ export class CustomerResolver {
       .stores({
         where: {},
       })
+  }
+
+  @Query((returns) => Store, { nullable: true })
+  async customerById(@Arg('id') id: number, @Ctx() ctx: Context) {
+    return ctx.prisma.customer.findUnique({
+      where: { id },
+    });
   }
 }

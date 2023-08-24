@@ -19,19 +19,19 @@ import { Context } from './context'
 @InputType()
 export class StoreCreateInput {
   @Field()
-  title: string
-
+  customerId: number;
+  
   @Field()
   storeName: string;
 
   @Field()
   distributionCenterName: string;
 
-  @Field((type) => Date)
-  openDate: Date;
+  @Field((type) => Date, { nullable: true })
+  openDate: Date | null;
 
-  @Field((type) => Date)
-  closeDate: Date;
+  @Field((type) => Date, { nullable: true})
+  closeDate: Date | null;
 }
 
 export enum SortOrder {
@@ -67,4 +67,28 @@ export class StoreResolver {
       },
     })
   }
+
+  @Mutation((returns) => Store)
+  async createStore(
+    @Arg('data') data: StoreCreateInput,
+    @Ctx() ctx: Context,
+  ): Promise<Store> {
+    
+    return ctx.prisma.store.create({
+      data: {
+        customerId: data.customerId,
+        storeName: data.storeName,
+        distributionCenterName: data.distributionCenterName,
+        openDate: data.openDate,
+        closeDate: data.closeDate
+      },
+    });
+  }
+  
+  @Query(() => [Store])
+  async allStores(@Ctx() ctx: Context) {
+    return ctx.prisma.store.findMany();
+  }
 }
+
+
