@@ -6,8 +6,8 @@ COPY package.json ./
 
 RUN npm install
 
+#Needed for Prisma getting the right OS binary
 RUN npx prisma generate
-
 
 COPY . .
 
