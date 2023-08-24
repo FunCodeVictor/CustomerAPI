@@ -14,8 +14,8 @@ CREATE TABLE `Store` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `storeName` VARCHAR(191) NOT NULL,
     `distributionCenterName` VARCHAR(191) NOT NULL,
-    `openDate` DATETIME(3) NOT NULL,
-    `closeDate` DATETIME(3) NOT NULL,
+    `openDate` DATETIME(3) NULL,
+    `closeDate` DATETIME(3) NULL,
     `customerId` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)

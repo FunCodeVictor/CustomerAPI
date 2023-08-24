@@ -53,7 +53,7 @@ export class CustomerResolver {
   }
 
   @Mutation((returns) => Customer)
-  async signupUser(
+  async signupCustomer(
     @Arg('data') data: CustomerCreateInput,
     @Ctx() ctx: Context,
   ): Promise<Customer> {
@@ -62,8 +62,7 @@ export class CustomerResolver {
         storeName: store.storeName,
         distributionCenterName: store.distributionCenterName,
         openDate: store.openDate,
-        closeDate: store.closeDate,
-        customer: store.customer
+        closeDate: store.closeDate
       }
     })
 
@@ -81,12 +80,12 @@ export class CustomerResolver {
   }
 
   @Query(() => [Customer])
-  async allUsers(@Ctx() ctx: Context) {
+  async allCustomers(@Ctx() ctx: Context) {
     return ctx.prisma.customer.findMany()
   }
 
   @Query((returns) => [Store], { nullable: true })
-  async draftsByUser(
+  async storesByCustomer(
     @Arg('customerUniqueInput') customerUniqueInput: CustomerUniqueInput,
     @Ctx() ctx: Context,
   ) {

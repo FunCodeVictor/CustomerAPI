@@ -2,59 +2,51 @@ import { PrismaClient, Prisma } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-const userData: Prisma.UserCreateInput[] = [
+const customerData: Prisma.CustomerCreateInput[] = [
   {
-    name: 'Alice',
-    email: 'alice@prisma.io',
-    posts: {
-      create: [
-        {
-          title: 'Join the Prisma Slack',
-          content: 'https://slack.prisma.io',
-          published: true,
-        },
-      ],
-    },
+    customerName: 'customer',
+    
+    sdpId: 1,
+    streetName: "test street name",
+    phoneNumber: "1213123123",
+    stores: {
+      create: {
+        storeName: "test store name",
+        distributionCenterName: "test dist name",
+      }
+    }
   },
   {
-    name: 'Nilu',
-    email: 'nilu@prisma.io',
-    posts: {
+    customerName: 'second customer',
+
+    sdpId: 2,
+    streetName: "second test street name",
+    phoneNumber: "21312312",
+    stores: {
       create: [
         {
-          title: 'Follow Prisma on Twitter',
-          content: 'https://www.twitter.com/prisma',
-          published: true,
-        },
-      ],
-    },
-  },
-  {
-    name: 'Mahmoud',
-    email: 'mahmoud@prisma.io',
-    posts: {
-      create: [
-        {
-          title: 'Ask a question about Prisma on GitHub',
-          content: 'https://www.github.com/prisma/prisma/discussions',
-          published: true,
+          storeName: "second test store name",
+          distributionCenterName: "second test dist name",
+          openDate: new Date("2023-02-01")
         },
         {
-          title: 'Prisma on YouTube',
-          content: 'https://pris.ly/youtube',
+          storeName: "third test store name",
+          distributionCenterName: "third test dist name",
+          openDate: new Date("2023-03-01"),
+          closeDate: new Date("2023-03-25")
         },
-      ],
-    },
+      ]
+    }
   },
 ]
 
 async function main() {
   console.log(`Start seeding ...`)
-  for (const u of userData) {
-    const user = await prisma.user.create({
-      data: u,
+  for (const c of customerData) {
+    const customer = await prisma.customer.create({
+      data: c,
     })
-    console.log(`Created user with id: ${user.id}`)
+    console.log(`Created user with id: ${customer.id}`)
   }
   console.log(`Seeding finished.`)
 }
