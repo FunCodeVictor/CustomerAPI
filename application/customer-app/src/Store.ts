@@ -13,11 +13,11 @@ export class Store {
   @Field()
   distributionCenterName: string
   
-  @Field((type) => Date)
-  openDate: Date
+  @Field((type) => Date, { nullable: true })
+  openDate: Date | null
 
-  @Field((type) => Date)
-  closeDate: Date
+  @Field((type) => Date, { nullable: true })
+  closeDate: Date | null
 
   @Field((type) => Customer, { nullable: true })
   customer?: Customer | null;
