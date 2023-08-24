@@ -6,8 +6,8 @@ import { GraphQLScalarType } from 'graphql'
 import { DateTimeResolver } from 'graphql-scalars'
 import * as tq from 'type-graphql'
 import { Context, context } from './context'
-import { PostCreateInput, PostResolver, SortOrder } from './PostResolver'
-import { UserResolver } from './UserResolver'
+import {  StoreCreateInput, StoreResolver, SortOrder } from './StoreResolver'
+import { CustomerResolver } from './CustomerResolver'
 
 
 const app = async () => {
@@ -16,7 +16,7 @@ const app = async () => {
   })
 
   const schema = await tq.buildSchema({
-    resolvers: [PostResolver, UserResolver, PostCreateInput],
+    resolvers: [StoreResolver, CustomerResolver, StoreCreateInput],
     scalarsMap: [{ type: GraphQLScalarType, scalar: DateTimeResolver }],
     validate: { forbidUnknownValues: false }
   })
@@ -26,8 +26,8 @@ const app = async () => {
   const { url } = await startStandaloneServer(server, { context: async () => context })
 
   console.log(`
-🚀 Server ready at: ${url}
-⭐️  See sample queries: http://pris.ly/e/ts/graphql-typegraphql#using-the-graphql-api`
+🚀🚀🚀🚀 Server ready at: ${url} 🚀🚀🚀🚀
+See sample queries: http://pris.ly/e/ts/graphql-typegraphql#using-the-graphql-api`
   )
 }
 
