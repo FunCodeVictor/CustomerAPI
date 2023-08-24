@@ -2,10 +2,10 @@ import { PrismaClient, Prisma } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-const customerData: Prisma.CustomerCreateInput[] = [
+const customerData: Prisma.CustomerUncheckedCreateInput[] = [
   {
+    id: 1,
     customerName: 'customer',
-    
     sdpId: 1,
     streetName: "test street name",
     phoneNumber: "1213123123",
@@ -17,8 +17,8 @@ const customerData: Prisma.CustomerCreateInput[] = [
     }
   },
   {
+    id: 2,
     customerName: 'second customer',
-
     sdpId: 2,
     streetName: "second test street name",
     phoneNumber: "21312312",
