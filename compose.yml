@@ -15,7 +15,7 @@ services:
     # (this is just an example, not intended to be a production configuration)
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: secret_password
+      MYSQL_ROOT_PASSWORD: secret_password #These passwords should of course not be here in a mature version of the solution
       MYSQL_DATABASE: customerdb
       MYSQL_USER: user
       MYSQL_PASSWORD: secret
