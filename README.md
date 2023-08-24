@@ -9,7 +9,7 @@ Optional:
 1.2 Connect with `mysqlsh -uroot -psecret_password -h 127.0.0.1 -P 3306 --database customerdb`
 
 To run solution:
-1. Be in root folder
+1. Be in `application` folder
 2. Run `docker compose up -d` 
 3. Await a few seconds after end, for customer-app to be connected with DB.
 
