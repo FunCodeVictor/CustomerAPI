@@ -1,1 +1,4 @@
 application/customer-app/node_modules
+application/customer-app/package-lock.json
+application/customer-parser/node_modules
+application/customer-parser/package-lock.json
