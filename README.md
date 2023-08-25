@@ -14,12 +14,15 @@ To run solution:
 3. Await a few seconds after end, for customer-app to be connected with DB.
 
 
-To run "lambda" customer-parser:
+To trigger "lambda" customer-parser container:
 1. Make sure all containers run
 2.Windows.1 You might have to remove a "curl alias" before it works (`Remove-item alias:curl`)
 2.Windows.2 Open terminal and run `curl "http://localhost:9000/2015-03-31/functions/function/invocations" -d "{}"`
 2.LinuxBased.1 Open terminal and run `curl "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{}'`
 
+To run unit tests in customer-parser:
+1. cd into application/customer-app/
+2. run `npm test` (make sure you have run `npm install` once before)
 
 Dev notes:
 Database migrations. Create with `npx prisma migrate dev --name init --create-only` where init is the name of the migration.

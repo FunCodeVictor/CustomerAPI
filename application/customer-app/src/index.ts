@@ -26,9 +26,9 @@ const app = async () => {
   const { url } = await startStandaloneServer(server, { context: async () => context })
 
   console.log(`
-🚀🚀🚀🚀 Server ready at: ${url} 🚀🚀🚀🚀
-See sample queries: http://pris.ly/e/ts/graphql-typegraphql#using-the-graphql-api`
-  )
+              🚀🚀🚀🚀 Server ready at: ${url} 🚀🚀🚀🚀
+              See sample queries: http://pris.ly/e/ts/graphql-typegraphql#using-the-graphql-api
+              `);
 }
 
 app()

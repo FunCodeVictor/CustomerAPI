@@ -1,10 +1,9 @@
-import { Customer } from '../api-models/Customer';
-import { Store } from '../api-models/Store';
+import { Customer } from '../business-models/Customer';
+import { Store } from '../business-models/Store';
 
 type ContentMapper = {
     preparedContent: string[][];
     customers: Customer[];
-    storeCount: number;
     prepareContent(fileContent: string[]): void;
     mapContentToModels(): void;
 };
@@ -15,7 +14,6 @@ export function getContentMapper(): ContentMapper {
     const contentMapper: ContentMapper = {
         preparedContent: [],
         customers: [],
-        storeCount: 0,
         prepareContent: function prepareContent(fileContent: string[]) {
             this.preparedContent = fileContentSplitLines(fileContent);
         },
@@ -32,7 +30,7 @@ function preparedContentToCustomerModels(preparedContent: string[][]): Customer[
     const customerIds: string[] = [];
     const storeIds: string[] = [];
 
-    for (const preparedContentLine in preparedContent) {
+    for (const preparedContentLine of preparedContent) {
         try {
             const tempCustomerId = preparedContentLine[1];
             if (checkModelShouldBeAdded(tempCustomerId, customerIds)) {
@@ -40,13 +38,17 @@ function preparedContentToCustomerModels(preparedContent: string[][]): Customer[
                 const tempCustomerName: string = preparedContentLine[2];
                 const tempPhone: string = preparedContentLine[10];
                 const tempStreetName: string = preparedContentLine[11];
+                
+                //first and last line entry has ' " ' in them from csv file.
+                const tempSdpIdCleaned: string = tempSdpId.replace('"', ''); 
+                const tempStreetNameCleaned: string = tempStreetName.replace('"', '');
 
                 tempCustomers = createCustomer(
                     tempCustomerId,
-                    tempSdpId,
+                    tempSdpIdCleaned,
                     tempCustomerName,
                     tempPhone,
-                    tempStreetName,
+                    tempStreetNameCleaned,
                     tempCustomers
                 );
 
@@ -75,14 +77,13 @@ function preparedContentToCustomerModels(preparedContent: string[][]): Customer[
                 };
 
                 relatedCustomer!.stores.push(tempStore);
-                this.storeCount++;
                 storeIds.push(tempStoreId);
             }
         } catch (error) {
             console.error(error);
         }
     }
-    
+
     return tempCustomers;
 }
 
@@ -118,8 +119,9 @@ function checkModelShouldBeAdded(id: string, addedIds: string[]): boolean {
 
 function fileContentSplitLines(fileContent: string[]) {
     const tempPreparedContent: string[][] = [];
-
-    for (const line in fileContent) {
+    
+    //slice because we don't want the headers of the fileContent
+    for (const line of fileContent.slice(1)) {
         const splitLine: string[] = line.split(",");
         tempPreparedContent.push(splitLine);
     }
