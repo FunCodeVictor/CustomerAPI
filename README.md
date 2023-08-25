@@ -161,3 +161,17 @@ Run migrations with `npx prisma migrate dev`. If correct, move the generated nam
 2. Install vim in alpine container (customer-app):
 * `apk update`
 * `apk add vim`
+
+#### Quickstarts used
+1. [Prisma ORM Quickstart](https://www.prisma.io/docs/getting-started/quickstart)
+    1. `customer-parser` APIs
+    2. `customer-app` Database models
+2. [Apollo GraphQL Get started with Apollo Server](https://www.apollographql.com/docs/apollo-server/getting-started/)
+    1. `customer-app` Setup the GraphQL server and APIs
+
+3. [AWS Testing Lambda container images locally](https://docs.aws.amazon.com/lambda/latest/dg/images-test.html)
+    1. `customer-parser` Triggering a handler container
+
+4. [MySQL docker image](https://hub.docker.com/_/mysql)
+    1. `cusomter-db` just starting the database container 
+    
